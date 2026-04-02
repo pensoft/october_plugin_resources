@@ -1,0 +1,61 @@
+<?php namespace Pensoft\Resources\Models;
+
+use Model;
+use System\Models\File;
+
+/**
+ * Model
+ */
+class Data extends Model
+{
+    use \October\Rain\Database\Traits\Validation;
+
+    use \October\Rain\Database\Traits\SoftDelete;
+
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
+
+
+    /**
+     * @var string The database table used by the model.
+     */
+    public $table = 'pensoft_resources_data';
+
+    /**
+     * @var array Validation rules
+     */
+    public $rules = [
+    ];
+
+    public $attachOne = [
+        'cover' => File::class,
+        'file' => File::class,
+    ];
+
+    public $attachMany = [
+        'file_langs' => File::class,
+    ];
+
+    public $belongsTo = [
+        'format' => [Format::class],
+    ];
+
+    public function scopeSearchTerms($query, $searchTerms)
+    {
+        if (!empty($searchTerms) && is_array($searchTerms)) {
+            foreach ($searchTerms as $term) {
+                $query->orWhere('title', 'ILIKE', "%{$term}%");
+                $query->orWhere('authors', 'ILIKE', "%{$term}%");
+                $query->orWhere('volume', 'ILIKE', "%{$term}%");
+                $query->orWhere('journal', 'ILIKE', "%{$term}%");
+                $query->orWhere('doi', 'ILIKE', "%{$term}%");
+                $query->orWhere('status', 'ILIKE', "%{$term}%");
+                $query->orWhere('place', 'ILIKE', "%{$term}%");
+                $query->orWhere('source', 'ILIKE', "%{$term}%");
+                $query->orWhere('web_page', 'ILIKE', "%{$term}%");
+            }
+        }
+        return $query;
+    }
+}

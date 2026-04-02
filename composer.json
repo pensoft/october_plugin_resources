@@ -1,0 +1,9 @@
+{
+    "name": "pensoft/resources-plugin",
+    "type": "october-plugin",
+    "description": "None",
+    "require": {
+        "php": "^8.2",
+        "composer/installers": "~2.0"
+    }
+}
