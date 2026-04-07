@@ -10,3 +10,6 @@
     - 'Composer'
 1.0.5:
     - 'Component'
+
+4.0.1:
+    - 'Migrated to OctoberCMS 4 and PHP 8.2'
